@@ -1,2 +1,3 @@
 # Notepad
-A recreation of Microsoft Windows Notepad written in C++.
+
+A remake of Microsoft Windows Notepad written in C++.
