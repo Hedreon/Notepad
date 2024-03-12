@@ -24,6 +24,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
+    INITCOMMONCONTROLSEX icex;
+    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+    icex.dwICC = ICC_STANDARD_CLASSES;
 
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -139,16 +142,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 if (STATUS_BAR_STATE)
                 {
                     STATUS_BAR_STATE = false;
-
                     CheckMenuItem(GetMenu(hWnd), IDM_STATUSBAR, MF_UNCHECKED);
                 }
                 else
                 {
                     STATUS_BAR_STATE = true;
-
                     CheckMenuItem(GetMenu(hWnd), IDM_STATUSBAR, MF_CHECKED);
                 }
 
+                break;
+            case IDM_WORDWRAP:
+                if (WORDWRAP_STATE)
+                {
+                    WORDWRAP_STATE = false;
+                    CheckMenuItem(GetMenu(hWnd), IDM_WORDWRAP, MF_UNCHECKED);
+                }
+                else
+                {
+                    WORDWRAP_STATE = true;
+                    CheckMenuItem(GetMenu(hWnd), IDM_WORDWRAP, MF_CHECKED);
+                }
+                
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
@@ -173,24 +187,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
-}
-
-// Message handler for about box.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
 }
