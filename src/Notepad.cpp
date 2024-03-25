@@ -7,6 +7,7 @@
 
 // Global Variables:
 HINSTANCE hInst;                                // current instance
+HWND hwndStatus;                                // status bar
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
 
@@ -55,8 +56,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     return (int) msg.wParam;
 }
-
-
 
 //
 //  FUNCTION: MyRegisterClass()
@@ -109,6 +108,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
+   hwndStatus = CreateWindowEx(0, STATUSCLASSNAME, NULL, WS_CHILD | (STATUS_BAR_STATE ? WS_VISIBLE : 0), 0, 0, 0, 0, hWnd, GetMenu(hWnd), hInstance, NULL);
+
    return TRUE;
 }
 
@@ -143,11 +144,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 {
                     STATUS_BAR_STATE = false;
                     CheckMenuItem(GetMenu(hWnd), IDM_STATUSBAR, MF_UNCHECKED);
+                    ShowWindow(hwndStatus, SW_HIDE);
                 }
                 else
                 {
                     STATUS_BAR_STATE = true;
                     CheckMenuItem(GetMenu(hWnd), IDM_STATUSBAR, MF_CHECKED);
+                    ShowWindow(hwndStatus, SW_SHOW);
                 }
 
                 break;
@@ -182,6 +185,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
+        break;
+    case WM_SIZE:
+        SendMessage(hwndStatus, WM_SIZE, 0, 0);
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
