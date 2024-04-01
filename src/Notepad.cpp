@@ -155,14 +155,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
                 break;
             case IDM_WORDWRAP:
-                if (WORDWRAP_STATE)
+                if (WORD_WRAP_STATE)
                 {
-                    WORDWRAP_STATE = false;
+                    WORD_WRAP_STATE = false;
                     CheckMenuItem(GetMenu(hWnd), IDM_WORDWRAP, MF_UNCHECKED);
                 }
                 else
                 {
-                    WORDWRAP_STATE = true;
+                    WORD_WRAP_STATE = true;
                     CheckMenuItem(GetMenu(hWnd), IDM_WORDWRAP, MF_CHECKED);
                 }
                 

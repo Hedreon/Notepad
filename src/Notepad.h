@@ -4,7 +4,7 @@
 #define FEEDBACK_URL "https://github.com/Hedreon/Notepad/issues" // FEEDBACK_URL specifies the URL it should open when the Send Feedback menu item is clicked.
 
 bool STATUS_BAR_STATE = true;
-bool WORDWRAP_STATE = true;
+bool WORD_WRAP_STATE = true;
 
 // Windows Header Files
 #include <windows.h>
