@@ -133,6 +133,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // Parse the menu selections:
             switch (wmId)
             {
+            case IDM_HELP:
+                ShellExecuteA(hWnd, "open", HELP_URL, NULL, NULL, SW_SHOWNORMAL);
+                break;
             case IDM_FEEDBACK:
                 ShellExecuteA(hWnd, "open", FEEDBACK_URL, NULL, NULL, SW_SHOWNORMAL);
                 break;
@@ -174,6 +177,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
         }
+
         break;
     case WM_PAINT:
         {
@@ -182,6 +186,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // TODO: Add any drawing code that uses hdc here...
             EndPaint(hWnd, &ps);
         }
+
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
@@ -192,5 +197,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
+
     return 0;
 }
